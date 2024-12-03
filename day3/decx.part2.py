@@ -3,6 +3,7 @@ import sys
 import re
 
 REX= re.compile(r"mul\((\d+),(\d+)\)")
+DONT= r"don't\(\).*do\(\)"
 
 filename = "input.txt"
 llimit = -1
@@ -39,7 +40,10 @@ with io.open(filename, "r") as f:
         l = l.strip()
 
         #edit me v v v v v  
-        matches = REX.finditer(l)
+        ldo = re.sub(DONT, "", l)
+        print(f"l: {l} -> ldo: {ldo}")
+
+        matches = REX.finditer(ldo)
         for m in matches:
             a = int(m.group(1))
             b = int(m.group(2))
